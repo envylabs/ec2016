@@ -1,43 +1,20 @@
 # EmberConf 2016 &mdash; Intermediate Ember
 
-## Level 1, Challenge 2
+## Level 2, Challenge 1
 
-Generate and write your first acceptance test.
+The quiz application has roughly three states: 1) creating a poll, 2)
+voting on an existing poll, and 3) viewing the results of a poll.
 
-1. Generate an acceptance test named "render-layout".
+You're going to test the application endpoints and "implement" them using just
+the static mockup files.
 
-2. Replace the generated `test` with a new test to locate and validate the
-   contents of the page header (`h1` or `.logo`). The header should eventually
-   contain the text "Wilderness Safety Quiz". Don't forget to use
-   `findWithAssert` to make sure that the `h1` is on the page.
+1. Generate an acceptance test file named "creating-a-poll". In it, replace the
+   generated test with one to ensure that the poll form is displayed on the
+   landing page of the application (`/`). Be sure to check for the question
+   prompt and correct number of options (3). Use the mockup file's
+   (`mockup/index.html`) content as your guide.
 
-3. With a test in place, start your Ember CLI testing server (`ember test
-   --server`). If you have PhantomJS and Chrome installed, they should
-   automatically start testing your application. Otherwise, you can run any
-   browser you like and point it to http://localhost:7357/ to run your tests.
-   Verify that your tests run and your header test (that you created in step 1)
-   is failing.
-
-4. Use the mockups to identify the layout. Look across the three pages of the
-   application to figure out what changes and what doesn't. Then, modify the
-   `application` Template to add the layout to it. Don't forget to include the
-   `{{outlet}}`!
-
-    Or, if you don't want to identify the layout yourself, you can use the
-    extracted layout below:
-
-    ```handlebars
-    <div class="cell">
-      <h1>
-        <a href="/" class="logo">
-          <b class="srt">Wilderness Safety Quiz</b>
-        </a>
-      </h1>
-
-      <div class="card">
-        <!-- Don't forget the outlet here! -->
-      </div>
-    </div>
-    ```
-
-5. Go ahead and re-implement the logo link using Embers `link-to` helper.
+2. Copy the body content (meaning: non-layout content that you previously
+   extracted into the `application` Template) from the mockup's poll form
+   (in `mockup/index.html`) into your application's `index` Template, which
+   you'll need to create.

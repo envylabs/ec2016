@@ -1,29 +1,48 @@
 # EmberConf 2016 &mdash; Intermediate Ember
 
-## Level 3, Challenge 4
+## Level 4, Challenge 1
 
-With Models now connected to the application, it's time to give them
-functionality.
+The voting system now works. However, users get no feedback when they make
+their selections.
 
-Additionally, because the existing acceptance tests already cover all of these
-properties, we do not need to add Model tests.
+1. In the `voting-on-a-poll` acceptance test, make sure that no Option buttons
+   are selected. To do that, locate all of the option buttons on the voting
+   page and ensure that none of them have an `is-selected` class.
 
-1. Update the Poll Model to have a `voteCount` property. This should be an
-   alias for `votes.length`.
+    **Hint:** You'll probably want to use jQuery's `.is(…)` or `.hasClass(…)`
+    method. The `is` method returns `true` when the node(s) match the given
+    selector.
 
-2. Update the Option Model to have a `voteCount` property. This should return
-   the _number of votes_ from its poll where the option voted for is itself.
+    ```javascript
+    findWithAssert('…').is('.is-selected') // true
+    // or
+    findWithAssert('…').hasClass('is-selected') // true
+    ```
 
-    **Note:** You will probably want to use `.filterBy('option', this)` to
-    filter the poll's votes collection.
+2. Test the option button functionality by locating the first option button on
+   the page. Click it and ensure that button now has the `is-selected` class.
+   Click it again, and make sure it is no longer `is-selected`.
 
-3. Add a `toggleOption(option)` method to Vote. This should set the Vote's
-   `option` property to the `option` given.
+    These tests will fail, because you haven't yet setup the `is-selected`
+    logic!
 
-4. Update the `polls/poll/index` Template to send a `toggleOption` Action,
-   passing the vote (model) and option, when an Option's button is clicked.
+3. To determine if an Option `is-selected`, you'll need to identify when the
+   Vote's `option` equals the current Option. However, you can't have complex
+   logic in your Templates!
 
-5. Update the `polls.poll.index` Route to handle the `toggleOption(vote, option)`
-   Action by calling your `vote.toggleOption(option)` method.
+    ```handlebars
+    <!-- This will not work! -->
+    <div class="{{#if model.option === option "is-selected"}}">
+    ```
 
-6. Update the `polls/poll/results` Template to display your `option.voteCount`.
+    So, create an `eq` Helper using Ember CLI's generators. Implement it by
+    testing that the first two elements of the given array equates (`arr[0] ===
+    arr[1]`).
+
+    Update the generated Helper tests to ensure that your function acts as you
+    expect by passing it various parameters and verifying the results. Try
+    things like `[1, 1]`, `[null, undefined]`, `[0, 0]`.
+
+4. Update the `polls/poll/index` Template to add a conditional class to the
+   option button. You'll need to use your `eq` helper as a sub expression to an
+   `if`!

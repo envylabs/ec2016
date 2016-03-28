@@ -1,9 +1,10 @@
 # EmberConf 2016 &mdash; Intermediate Ember
 
-## Level 2, Challenge 4
+## Level 3, Challenge 1
 
-There's a bit of duplication in the `polls/poll/index` and `polls/poll/results`
-Templates. Notice that the `footer` appears identically in both.
+Look at the mockups and identify the Models.
 
-1. Extract `footer` (which is a Polls listing) from the `polls/poll/index` and
-   `polls/poll/results` Templates and put it into the `polls` Template.
+1. Manually create empty Ember.Object Models for `Poll`, `Option`, and `Vote`.
+
+2. Generate a `store` Service to manage them using the Ember CLI Service
+   generator.

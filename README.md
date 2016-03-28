@@ -1,41 +1,40 @@
 # EmberConf 2016 &mdash; Intermediate Ember
 
-## Level 2, Challenge 2
+## Level 2, Challenge 3
 
 _Reminder:_ The quiz application has roughly three states: 1) creating a poll,
 2) voting on an existing poll, and 3) viewing the results of a poll.
 
-With the Poll form displayed, it's time to test the functionality of it.
+With Polls created, it's time to "test" the voting. For now, we'll implement
+the interactions, but we won't actually modify any data yet. Instead, we'll
+continue rendering and relying on the content of the mockup HTML.
 
-1. Add a test to the "creating-a-poll" file to ensure that filling out the Poll
-   form and clicking on the submit button transitions you to a new
-   `polls.poll.index` Route that you'll create, next.
+1. Generate a "voting-on-a-poll" acceptance test. Add a test for casting a
+   vote. To do that, visit a poll (`/polls/1`), click on the first option's
+   button to "select" it. Then, submit the vote by clicking the submit button.
 
-     Use the voting page's mockup data as your form submission test data. So
-     for example, your filled in question should be: `Which of the following is
-     NOT part of the Woodland Wanderer Way?`.
+    You should test to ensure you are transitioned to the `polls.poll.results`
+    Route. And ensure that the option you voted on shows 1 vote applied.
 
-2. Use `ember generate` to create a new Route for `polls`.
+2. Whoops! Ember is complaining about not finding a Poll model!
 
-3. Use `ember generate` to create a new Route for `polls/poll` (a `polls.poll`
-   Route) whose `path` is a `:poll_id` dynamic segment. This will allow us to
-   later load a particular Poll by ID.
+    Ember is trying to be smart for us (which normally would be great!) by
+    recognizing the "poll_id" as an "_id" parameter. Ember will try to
+    automatically find that "poll" model for us and return the one with the
+    matching ID. But, we don't yet have a model. :(
 
-4. Use `ember generate` to create a new Route for `polls/poll/results`. This
-   will be used later to display Poll voting results.
+    For now, open the `polls/poll` Route and stub out the `model` hook to
+    bypass that automatic behavior.
 
-5. In the Poll form, add an Action called "createPoll" to catch the form
-   submission (`on="submit"`) and pass it the `model`. Create an `index` Route
-   and add a `createPoll` handler to its `actions` hash to transition to the
-   `polls.poll` Route. Don't forget to pass through the `model` to the
-   transition call!
+    ```javascript
+    import Ember from 'ember';
 
-6. Back in the "creating-a-poll" test you created in step 1 above, update it to
-   add a test which ensures that the Poll data displayed on the voting page
-   matches the data which you provided.
+    export default Ember.Route.extend({
+      model() { }
+    });
+    ```
 
-    **Hint:** You will likely want to use an `li:eq(…)` element selector to
-    test each option displayed.
-
-7. Copy the Poll voting pages mockup content (`mockup/quiz/index.html`) into a
-   new `polls/poll/index` Template.
+3. Add an Action to the Vote! button called "castVote" and pass the `model` as
+   the only Action argument. Then create a `polls.poll.index` Route to create
+   an Action handler which transitions to the `polls.poll.result` Route with
+   the given model.

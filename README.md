@@ -1,37 +1,29 @@
 # EmberConf 2016 &mdash; Intermediate Ember
 
-## Level 3, Challenge 3
+## Level 3, Challenge 4
 
-Update the Routes and Templates to use your Store and Models.
+With Models now connected to the application, it's time to give them
+functionality.
 
-**Note:** Use the fixture data in the Store to identify the appropriate
-model attributes to use (for example: `poll.prompt`, `option.label`).
+Additionally, because the existing acceptance tests already cover all of these
+properties, we do not need to add Model tests.
 
-1. Update the model hook of the `polls` Route. It should return the Store's
-   `findAllPolls()` result. Then update the `polls` Template to use the new
-   model.
+1. Update the Poll Model to have a `voteCount` property. This should be an
+   alias for `votes.length`.
 
-2. Update the model hook of the `polls.poll` Route. This should find a Poll by
-   ID using the Store's `findPoll` method and return the result. Then update
-   the `polls/poll/index` and `polls/poll/results` Templates to use the
-   returned Poll record model.
+2. Update the Option Model to have a `voteCount` property. This should return
+   the _number of votes_ from its poll where the option voted for is itself.
 
-    Since we don't yet have functionality for counting votes in the models,
-    just replace the counts with `XX` to remind yourself to fix it later. This
-    will leave you with _some_ failing tests at the end of this level.
+    **Note:** You will probably want to use `.filterBy('option', this)` to
+    filter the poll's votes collection.
 
-3. Update the `index` Route to:
+3. Add a `toggleOption(option)` method to Vote. This should set the Vote's
+   `option` property to the `option` given.
 
-    * Use `createPoll` as the `model` hook
-    * Call `savePoll` from within the `createPoll` Action handler
+4. Update the `polls/poll/index` Template to send a `toggleOption` Action,
+   passing the vote (model) and option, when an Option's button is clicked.
 
-4. Update the `index` Template to use the `model`.
+5. Update the `polls.poll.index` Route to handle the `toggleOption(vote, option)`
+   Action by calling your `vote.toggleOption(option)` method.
 
-5. Update the `polls.poll.index` Route to:
-
-    * Use `createPoll` as the `model` hook
-    * Call `savePoll` from within the `castVote` Action handler
-
-6. Update the `polls/poll/index` Template to use the `model`. Remember that the
-   model here is a Vote, so to list Options, you'll need to access
-   `model.poll.options`.
+6. Update the `polls/poll/results` Template to display your `option.voteCount`.

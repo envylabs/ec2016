@@ -5,6 +5,10 @@ export default Ember.Route.extend({
     castVote(vote) {
       this.get('store').saveVote(vote);
       this.transitionTo('polls.poll.results');
+    },
+
+    toggleOption(vote, option) {
+      vote.toggleOption(option);
     }
   },
 

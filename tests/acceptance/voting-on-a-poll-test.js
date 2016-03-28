@@ -3,6 +3,33 @@ import moduleForAcceptance from 'quiz/tests/helpers/module-for-acceptance';
 
 moduleForAcceptance('Acceptance | voting on a poll');
 
+test('all options are display unselected', function(assert) {
+  visit('/polls/1');
+
+  andThen(function() {
+    assert.notOk(findWithAssert('.list--answer button:eq(0)').is('.is-selected'), 'button 1 is not selected');
+    assert.notOk(findWithAssert('.list--answer button:eq(1)').is('.is-selected'), 'button 2 is not selected');
+    assert.notOk(findWithAssert('.list--answer button:eq(2)').is('.is-selected'), 'button 3 is not selected');
+  });
+});
+
+test('a button toggles selection', function(assert) {
+  const buttonSelector = '.list--answer button:eq(0)';
+
+  visit('/polls/1');
+  click(buttonSelector);
+
+  andThen(function() {
+    assert.ok(findWithAssert(buttonSelector).is('.is-selected'), 'button 1 is selected after click');
+  });
+
+  click(buttonSelector);
+
+  andThen(function() {
+    assert.notOk(findWithAssert(buttonSelector).is('.is-selected'), 'button 1 is unselected after another click');
+  });
+});
+
 test('casting a vote transitions to the results page', function(assert) {
   visit('/polls/1');
   click('.list--answer button:eq(0)');

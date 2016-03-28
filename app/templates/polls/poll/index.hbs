@@ -14,7 +14,7 @@
         <ul class="list list--answer">
           {{#each model.poll.options as |option|}}
             <li class="list-item">
-              <button class="list-item-checkbox" {{action "toggleOption" model option}}>
+              <button class="list-item-checkbox {{if (eq model.option option) "is-selected"}}" {{action "toggleOption" model option}}>
                 <b class="srt">Select</b>
               </button>
               <span>{{option.label}}</span>

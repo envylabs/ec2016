@@ -44,11 +44,11 @@
   <div class="grid group actions">
 
     <div class="grid-box grid-box--3of4">
-      <button class="btn btn--primary btn--vote">Vote!</button>
+      <button class="btn btn--primary btn--vote" {{action "castVote" model}}>Vote!</button>
     </div>
 
     <div class="grid-box grid-box--1of4 results">
-      <a href="/chart/" class="btn btn--secondary btn--results">Results</a>
+      {{link-to "Results" "polls.poll.results" class="btn btn--secondary btn--results"}}
     </div>
 
   </div>

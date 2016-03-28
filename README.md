@@ -1,30 +1,37 @@
 # EmberConf 2016 &mdash; Intermediate Ember
 
-## Level 3, Challenge 2
+## Level 3, Challenge 3
 
-**Note:** Because we've added a `store` Service, be sure to restart your test
-and development servers. This ensures that our custom Service overrides the
-Ember Data-provided `store` service, for now.
+Update the Routes and Templates to use your Store and Models.
 
-We've added data to your Store. Now, you need to implement the Store's methods.
+**Note:** Use the fixture data in the Store to identify the appropriate
+model attributes to use (for example: `poll.prompt`, `option.label`).
 
-1. We know that we're going to need to the following:
+1. Update the model hook of the `polls` Route. It should return the Store's
+   `findAllPolls()` result. Then update the `polls` Template to use the new
+   model.
 
-    * List all Polls (`findAllPolls`)
-    * Find a Poll by ID (`findPoll(id)`)
+2. Update the model hook of the `polls.poll` Route. This should find a Poll by
+   ID using the Store's `findPoll` method and return the result. Then update
+   the `polls/poll/index` and `polls/poll/results` Templates to use the
+   returned Poll record model.
 
-    Implement the above methods in the Store.
+    Since we don't yet have functionality for counting votes in the models,
+    just replace the counts with `XX` to remind yourself to fix it later. This
+    will leave you with _some_ failing tests at the end of this level.
 
-2. Add a `createPoll` method to the Store to create a new, unsaved Poll record.
-   The returned Poll record should contain three Option records.
+3. Update the `index` Route to:
 
-3. Add a `createVote(poll)` method to the Store. This should return a new Vote
-   record whose `poll` property is equal to the given `poll` argument.
+    * Use `createPoll` as the `model` hook
+    * Call `savePoll` from within the `createPoll` Action handler
 
-4. Implement a `savePoll(poll)` method. This should `pushObject` the given
-   `poll` into the private `polls` collection and set an arbitrary, but unique
-   ID on it.
+4. Update the `index` Template to use the `model`.
 
-5. Finally, implement a `saveVote(vote)` method. This method should get the
-   `poll` from the given `vote`. Then, use `pushObject` to insert the given
-   `vote` into the Poll's `votes` collection.
+5. Update the `polls.poll.index` Route to:
+
+    * Use `createPoll` as the `model` hook
+    * Call `savePoll` from within the `castVote` Action handler
+
+6. Update the `polls/poll/index` Template to use the `model`. Remember that the
+   model here is a Vote, so to list Options, you'll need to access
+   `model.poll.options`.

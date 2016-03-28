@@ -5,40 +5,29 @@
 
 <main class="card card--light">
 
-  <h3 class="border">Which of the following is NOT part of the Woodland Wanderer Way?</h3>
+  <h3 class="border">{{model.prompt}}</h3>
   <div class="border">
     <div class="grid group">
 
       <div class="card-content grid-box grid-box--3of5">
 
         <ul class="list list--answer list--answer--flush">
-          <li class="list-item">
-            <span>Honesty</span>
-          </li>
-          <li class="list-item">
-            <span>Integrity</span>
-          </li>
-          <li class="list-item">
-            <span>Impatience</span>
-          </li>
+          {{#each model.options as |option|}}
+            <li class="list-item">
+              <span>{{option.label}}</span>
+            </li>
+          {{/each}}
         </ul>
 
       </div>
 
       <div class="grid-box grid-box--2of5">
 
-        <div class="progress">
-          <p class="progress-info">1 votes (100%)</p>
-        </div>
-
-        <div class="progress">
-          <p class="progress-info">0 votes (0%)</p>
-        </div>
-
-        <div class="progress">
-          <p class="progress-info">0 votes (0%)</p>
-        </div>
-
+        {{#each model.options as |option|}}
+          <div class="progress">
+            <p class="progress-info">XX votes (XX%)</p>
+          </div>
+        {{/each}}
       </div>
 
     </div>

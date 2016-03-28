@@ -5,31 +5,21 @@
 
 <main class="card card--light">
 
-  <h3 class="border">Which of the following is NOT part of the Woodland Wanderer Way?</h3>
+  <h3 class="border">{{model.poll.prompt}}</h3>
   <div class="border">
     <div class="grid group">
 
       <div class="card-content grid-box grid-box--3of5">
 
         <ul class="list list--answer">
-          <li class="list-item">
-            <button class="list-item-checkbox">
-              <b class="srt">Select</b>
-            </button>
-            <span>Honesty</span>
-          </li>
-          <li class="list-item">
-            <button class="list-item-checkbox">
-              <b class="srt">Select</b>
-            </button>
-            <span>Integrity</span>
-          </li>
-          <li class="list-item">
-            <button class="list-item-checkbox">
-              <b class="srt">Select</b>
-            </button>
-            <span>Impatience</span>
-          </li>
+          {{#each model.poll.options as |option|}}
+            <li class="list-item">
+              <button class="list-item-checkbox">
+                <b class="srt">Select</b>
+              </button>
+              <span>{{option.label}}</span>
+            </li>
+          {{/each}}
         </ul>
 
       </div>

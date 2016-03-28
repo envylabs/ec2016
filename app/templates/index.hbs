@@ -8,23 +8,15 @@
   <form class="form" {{action "createPoll" model on="submit"}}>
     <fieldset class="form-field">
       <label class="form-label" for="question">Question</label>
-      <input class="form-input" id="question" type="text">
+      {{input class="form-input" id="question" type="text" value=model.prompt}}
     </fieldset>
 
-    <fieldset class="form-field">
-      <label class="form-label">Option</label>
-      <input class="form-input option" type="text">
-    </fieldset>
-
-    <fieldset class="form-field">
-      <label class="form-label">Option</label>
-      <input class="form-input option" type="text">
-    </fieldset>
-
-    <fieldset class="form-field">
-      <label class="form-label">Option</label>
-      <input class="form-input option" type="text">
-    </fieldset>
+    {{#each model.options as |option|}}
+      <fieldset class="form-field">
+        <label class="form-label">Option</label>
+        {{input class="form-input option" type="text" value=option.label}}
+      </fieldset>
+    {{/each}}
 
     <button class="btn btn--primary btn--form">Submit!</button>
   </form>
